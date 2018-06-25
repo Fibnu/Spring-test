@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 扫描指定包（将 @Component 注解的类自动定义为 Spring Bean） -->
+    <context:component-scan base-package="com.dc"/>
+    
+    <!-- 切面的配置格式 -->
+        <!-- ====================配置方式1====================== -->
+	 <!-- 配置一个切面
+	    	切面类还有：
+	    			DefaultPointcutAdvisor：默认切面（可扩展它来自定义切面）
+					NameMatchMethodPointcutAdvisor：根据方法名称进行匹配的切面
+					StaticMethodMatcherPointcutAdvisor：用于匹配静态方法的切面
+	    
+    <bean id="greetingAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="greetingAroundAdvice"/>            
+        <property name="pattern" value="com.dc.GreetingImpl.good.*"/> 
+    </bean>
+
+    <bean id="greetingProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="greetingImpl"/>                
+        <property name="interceptorNames" value="greetingAdvisor"/>
+        <property name="proxyTargetClass" value="true"/>         
+    </bean> -->
+    
+    
+    <!-- ====================配置方式2====================== -->
+    <!--自动代理 
+    	Spring AOP 提供了一个可根据 Bean 名称来自动生成代理的工具，它就是 BeanNameAutoProxyCreator
+    	以上使用 BeanNameAutoProxyCreator 只为后缀为“Impl”的 Bean 生成代理。
+    	需要注意的是，这个地方我们不能定义代理接口，也就是 interfaces 属性，
+    	因为我们根本就不知道这些 Bean 到底实现了多少接口。此时不能代理接口，而只能代理类。所以这里提供了一个新的配置项，它就是 optimize。
+    	若为 true 时，则可对代理生成策略进行优化（默认是 false 的）。 
+    	
+    	CGLib 创建代理的速度比较慢，但创建代理后运行的速度却非常快，而 JDK 动态代理正好相反。
+    	如果在运行的时候不断地用 CGLib 去创建代理，系统的性能会大打折扣，所以建议一般在系统初始化的时候用 CGLib 去创建代理，并放入 Spring 的 ApplicationContext 中以备后用。
+    	
+    	以上这个例子只能匹配目标类，而不能进一步匹配其中指定的方法，要匹配方法，就要考虑使用切面与切点了。Spring AOP 基于切面也提供了一个自动代理生成器：DefaultAdvisorAutoProxyCreator。
+    	
+    	还是要配置切面
+    	
+    <bean id="greetingAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="greetingAroundAdvice"/>            
+        <property name="pattern" value="com.dc.GreetingImpl.good.*"/> 
+    </bean>	
+    	
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames" value="*Impl"/>                       
+        <property name="interceptorNames" value="greetingAdvisor"/>
+        <property name="optimize" value="true"/>                       
+    </bean>-->
+    
+    <!-- ====================配置方式3====================== -->
+    <!-- 
+    	这里无需再配置代理了，因为代理将会由 DefaultAdvisorAutoProxyCreator 自动生成。也就是说，这个类可以扫描所有的切面类，并为其自动生成代理。
+    	
+    	看来不管怎样简化，老罗始终解决不了切面的配置
+    <bean id="greetingAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="pattern" value="aop.demo.GreetingImpl.good.*"/>
+        <property name="advice" ref="greetingAroundAdvice"/>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="optimize" value="true"/>
+    </bean>-->
+    
+    <!-- ====================配置方式4====================== -->
+	<!-- 
+		Spring + AspectJ（基于注解：通过 AspectJ execution 表达式拦截方法）
+		
+		类上面标注的 @Aspect 注解，这表明该类是一个 Aspect（其实就是 Advisor）。该类无需实现任何的接口，只需定义一个方法（方法叫什么名字都无所谓），只需在方法上标注 @Around 注解，在注解中使用了 AspectJ 切点表达式。方法的参数中包括一个 ProceedingJoinPoint 对象，它在 AOP 中称为 Joinpoint（连接点），可以通过该对象获取方法的任何信息，例如：方法名、参数等。
+		下面重点来分析一下这个切点表达式：
+		execution(* aop.demo.GreetingImpl.*(..))
+		execution()：表示拦截方法，括号中可定义需要匹配的规则。
+		第一个“*”：表示方法的返回值是任意的。
+		第二个“*”：表示匹配该类中所有的方法。
+		(..)：表示方法的参数是任意的。
+		
+		缺点：定义切面需要有源码，没有源码的的只能通过配置了
+	 -->
+	 
+	  <!-- ====================配置方式5====================== -->
+	  <!-- 
+	  		兼容老系统，使用aop:config标签
+	   -->
+	<aop:config>
+        <aop:aspect ref="greetingAdvisor">
+            <aop:around method="around" pointcut="execution(* com.dc.GreetingImpl.say*(..))"/>
+            <aop:around method="aroundAnnotation" pointcut="execution(* com.dc.GreetingImpl.good*(..))"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- 
+    	aop:advisor配置 sleepHelper类必须实现Advice接口 ，如 MethodBeforeAdvice,AfterReturningAdvice
+	 <aop:config>
+	    <aop:pointcut expression="execution(* com.dc.GreetingImpl.say*(..))" id="sleepPointcut"/>
+	    <aop:advisor advice-ref="sleepHelper" pointcut-ref="sleepPointcut"/>
+	</aop:config> -->
+	 <aop:aspectj-autoproxy proxy-target-class="true"/>
+	 
+</beans>

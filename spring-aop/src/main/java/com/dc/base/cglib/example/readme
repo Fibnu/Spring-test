@@ -1,0 +1,9 @@
+1、下面介绍几种用法，这里使用spring包中cglib，其实和引单独的cglib包是一样，只不过spring为了版本不冲突，将cglib包含在自的包中。
+   
+   
+
+2、值得注意的几点是：
+1）使用CGLib代理的类不能是final修饰的，因为代理类需要继承主题类；
+2）final修饰的方法不会被切入；
+3）如果主题类的构造函数不是默认空参数的，那么在使用Enhancer类create的时候，选择create(java.lang.Class[] argumentTypes, java.lang.Object[] arguments) 方法。
+   ** spring中cglib要求类必须有无参构造器

@@ -1,0 +1,5 @@
+#common ignore
+.settings/
+
+#maven ignore
+target/
