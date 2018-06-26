@@ -1,5 +1,9 @@
 不积跬步无以至千里。。。。。。
 =========spring aop目前总结的知识================
+	aop:面向切面编程，
+	
+	
+	前置，后置，环绕，异常(对方法的增强),引入(对类的增强)
 
 
 1、springaop专用术语解释：
@@ -12,6 +16,7 @@
 	
 
 2、spring aop与aspectj的联系
+
 	aspectj是一个扩展java语言(另一种语言)写的一个aop框架
 	spring aop仅借用了aspectj的切点表达式，本质上还是使用的原生的spring aop框架的
 	
