@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>spring</groupId>
@@ -17,13 +17,13 @@
   
   <modules>
   	<module>spring-aop</module>
+    <module>spring-ioc</module>
   </modules>
   
   
   
   <!-- 
-  	Manen提供dependencyManagement和pluginManagement两个标签。使用这两个标签，可以在父项目中统一管理依赖和插件的配置参数，比如版本号啥的。而在子项目中，仅需列出需要使用的依赖和插件的groupId和artifactId就
-   -->
+  	Manen提供dependencyManagement和pluginManagement两个标签。使用这两个标签，可以在父项目中统一管理依赖和插件的配置参数，比如版本号啥的。�?在子项目中，仅需列出�?��使用的依赖和插件的groupId和artifactId�?   -->
 	<dependencies>
 	    <!-- spring start -->  
 	    <dependency>  
@@ -158,12 +158,12 @@
 				    <artifactId>maven-compiler-plugin</artifactId>
 				    <version>3.6.2</version>
 				    <configuration>
-				        <source>1.6</source>//源代码编译版本
+				        <source>1.6</source>//源代码编译版
 				        <target>1.6</target>//目标平台编译版本
 				        <includes>
 				            <include>**/*.java</include>
 				        </includes>
-				        <encoding>${project.build.sourceEncoding}</encoding>//字符集编码,这里引用全局属性
+				        <encoding>${project.build.sourceEncoding}</encoding>//字符集编这里引用全局
 				    </configuration>
 				</plugin>
 			  </plugins>

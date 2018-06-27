@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.custom.tool/schema/tool"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.custom.tool/schema/tool"
+			elementFormDefault="qualified">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+		
+		<xsd:annotation>
+			<xsd:documentation>
+				schema :根标签，xmlns：使用的命名空间的URI的引用，该标签没有分配前缀，可未限定的应用
+				   targetNamespace：该 schema 的命名空间的 URI 引用。还可以分配该命名空间的前缀
+				   elementFormDefault：必须通过命名空间前缀限定目标命名空间的元素。
+			</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:annotation>
+			<xsd:documentation>
+				复合型标签类型：标签名称test，有两个元素 expected-type，exports
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:element name="test">
+			<xsd:complexType>
+				<xsd:sequence>
+					<xsd:element name="expected-type" type="typedParameterType" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="exports" type="exportsType" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:element>
+		
+		<xsd:complexType name="typedParameterType">
+			<xsd:attribute name="type" type="xsd:string" use="required"/>
+		</xsd:complexType>
+		
+		<xsd:complexType name="exportsType">
+			<xsd:attribute name="identifier" type="xsd:string" default="@id" />
+			<xsd:attribute name="type"  type="xsd:string"/>
+		</xsd:complexType>
+
+</xsd:schema>

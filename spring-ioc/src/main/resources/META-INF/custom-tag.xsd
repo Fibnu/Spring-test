@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://www.custom.tag/schema/tag"
+		xmlns:customtool="http://www.custom.tool/schema/tool"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.custom.tag/schema/tag"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+
+	<xsd:import namespace="http://www.custom.tool/schema/tool"  schemaLocation="http://www.custom.tool/schema/tool/custom-tool.xsd"/>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<![CDATA[测试自定义标签，学习一下xsd验证xml标签，annotation标签相当于注释]]>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	
+	<xsd:element name="customtag">
+		<xsd:complexType>
+			<xsd:annotation>
+				<xsd:appinfo>
+					<customtool:test>
+						<customtool:exports type="com.dc.CustomInfo"/>
+					</customtool:test>
+				</xsd:appinfo>
+			</xsd:annotation>
+			<xsd:attribute name="id" type="xsd:string" /> 
+			<xsd:attribute name="code">
+			  <xsd:simpleType>
+			    <xsd:restriction base="xsd:string">
+			      <xsd:pattern value="[A-Z][A-Z]"/>
+			    </xsd:restriction>
+			  </xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+
+</xsd:schema>
