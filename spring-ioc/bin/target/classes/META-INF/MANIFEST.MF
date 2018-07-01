@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Class-Path: lib/spring-aop-4.2.0.RELEASE.jar lib/aopalliance-1.0.jar l
+ ib/spring-aspects-4.2.0.RELEASE.jar lib/aspectjweaver-1.8.6.jar lib/s
+ pring-beans-4.2.0.RELEASE.jar lib/spring-context-4.2.0.RELEASE.jar li
+ b/spring-context-support-4.2.0.RELEASE.jar lib/spring-core-4.2.0.RELE
+ ASE.jar lib/commons-logging-1.2.jar lib/spring-expression-4.2.0.RELEA
+ SE.jar lib/spring-instrument-4.2.0.RELEASE.jar lib/spring-instrument-
+ tomcat-4.2.0.RELEASE.jar lib/spring-jdbc-4.2.0.RELEASE.jar lib/spring
+ -jms-4.2.0.RELEASE.jar lib/spring-messaging-4.2.0.RELEASE.jar lib/spr
+ ing-orm-4.2.0.RELEASE.jar lib/spring-oxm-4.2.0.RELEASE.jar lib/spring
+ -test-4.2.0.RELEASE.jar lib/spring-tx-4.2.0.RELEASE.jar lib/spring-we
+ b-4.2.0.RELEASE.jar lib/spring-webmvc-4.2.0.RELEASE.jar lib/spring-we
+ bmvc-portlet-4.2.0.RELEASE.jar lib/spring-websocket-4.2.0.RELEASE.jar
+Build-Jdk: 1.7.0_45
+Built-By: Administrator
+Created-By: Maven Integration for Eclipse
+Main-Class: com.dc.App
+
