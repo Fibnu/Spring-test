@@ -6,6 +6,66 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
-
+		
+	<!-- property 子标签的基本配置 -->	
+	<bean id="modleD" class="com.dc.tag.bean.subtag.property.base.ModleD"/>
+	<bean id="modleB" class="com.dc.tag.bean.subtag.property.base.ModleB"/>
+	<bean id="modleA" class="com.dc.tag.bean.subtag.property.base.ModleA">
+		<property name="modleC">
+			<bean class="com.dc.tag.bean.subtag.property.base.ModleC">
+				<property name="innerUser"  value="zhangsan"/>
+			</bean>
+		</property>
+		<property name="modleB">
+			<ref bean="modleB"/>
+		</property>
+		<property name="name" value="liming"/>
+		<property name="brand"><!-- 传入Null值 -->
+		    <null/>
+		</property>
+		<property name="modleD">
+			<ref bean="modleD"/>
+		</property>
+		<!--<property name="modelD.username" value="你是谁"/> 级联属性 ,级联的元素需要先初始化-->
+		
+		<property name="listStr">
+			<list>
+				<value>唱歌</value>
+			</list>
+		</property>
+		<property name="setStr">
+			<list>
+				<value>跳舞</value>
+			</list>
+		</property>
+		
+		<property name="mapStr">
+			<map>
+				<entry>
+					<key><value>sing</value></key>
+					<value>11</value>
+				</entry>
+			</map>
+		</property>
+		
+		<property name="propStr">
+			<props>
+				<prop key="tiaowu">跳舞</prop>
+			</props>
+		</property>
+				
+	</bean>	
+	
+	<!-- lookmethod -->
+	<bean id="getBeanTest" class="com.dc.tag.bean.subtag.property.lookmethod.GetBeanTest">
+		<lookup-method name="getBean" bean="bmCar"/>
+	</bean>
+	<bean id="bmCar" class="com.dc.tag.bean.subtag.property.lookmethod.BMCar" />
+	<!-- replaycemethod -->
+	<bean id="who" class="com.dc.tag.bean.subtag.property.replaycemethod.Who">
+		<replaced-method name="sayHello" replacer="you"/>
+	</bean>
+	<bean id="you" class="com.dc.tag.bean.subtag.property.replaycemethod.You"/>
+	
 		
 </beans>
