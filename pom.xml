@@ -18,12 +18,13 @@
   <modules>
   	<module>spring-aop</module>
     <module>spring-ioc</module>
+    <module>spring-messagesource</module>
   </modules>
   
   
   
   <!-- 
-  	Manen提供dependencyManagement和pluginManagement两个标签。使用这两个标签，可以在父项目中统一管理依赖和插件的配置参数，比如版本号啥的。�?在子项目中，仅需列出�?��使用的依赖和插件的groupId和artifactId�?   -->
+  	Manen提供dependencyManagement和pluginManagement两个标签。使用这两个标签，可以在父项目中统一管理依赖和插件的配置参数，比如版本号啥的。�?在子项目中，仅需列出�?��使用的依赖和插件的groupId和artifactId�?   -->
 	<dependencies>
 	    <!-- spring start -->  
 	    <dependency>  
