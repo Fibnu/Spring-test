@@ -20,6 +20,8 @@
     <module>spring-ioc</module>
     <module>spring-messagesource</module>
     <module>spring-event</module>
+    <module>spring-beanfactorypostprocess</module>
+    <module>spring-prepare</module>
   </modules>
   
   

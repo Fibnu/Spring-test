@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+		<bean id="userManager" class="com.spring.UserManager">
+			<property name="date" value="2013-03-15"/>
+		</bean>		
+		
+		<bean  class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+			<!-- 方法一 
+			<property name="customEditors">
+				<map>
+					<entry key="java.util.Date" value="com.spring.DatePropertyEdit">
+					</entry>
+				</map>
+			</property>-->
+			<!-- 方法二 -->
+			<property name="propertyEditorRegistrars">
+				<list>
+					<bean class="com.spring.DatePropertyEditorRegistrar" />
+				</list>
+			</property>
+		</bean>
+		
+		<bean id="conversionService" class="rg.springframework.context.support.ConversionServiceFactoryBean">
+			<property name="converters">
+				<list>
+					<bean class="StringToDate" />
+				</list>
+			</property>
+		</bean>
+		
+</beans>
